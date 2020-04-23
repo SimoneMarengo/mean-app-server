@@ -1,6 +1,4 @@
-// load the todo model
-var Todo = require('./models/todo');
-
+const crypto = require('../utils/crypto.js');
 // expose the routes to our app with module.exports
 module.exports = function (app) {
 
@@ -13,6 +11,9 @@ module.exports = function (app) {
     });
 
     app.post('/users/registration', function (req, res) {
-        res.send(req.body);
+        res.send({
+            passowrd: crypto.encrypt(req.body.password),
+            ...req.body
+        });
     });
 };
